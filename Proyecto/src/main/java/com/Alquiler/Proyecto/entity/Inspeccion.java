@@ -20,7 +20,7 @@ public class Inspeccion {
 
     @ManyToOne
     @JoinColumn(name = "alquiler_id")
-    private Alquiler alquiler;
+    private Alquiler Alquiler;
 
     private LocalDate fecha;
     private String observaciones;
