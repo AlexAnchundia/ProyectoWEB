@@ -8,3 +8,4 @@ class Sucursal(Base):
     direccion = Column(String)
     ciudad = Column(String)
     telefono = Column(String)
+    

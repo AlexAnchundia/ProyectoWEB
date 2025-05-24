@@ -48,3 +48,4 @@ async def delete_empleado(db: AsyncSession, empleado_id: int):
     await db.delete(empleado)
     await db.commit()
     return empleado
+    

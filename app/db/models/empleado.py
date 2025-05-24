@@ -8,3 +8,4 @@ class Empleado(Base):
     cargo = Column(String)
     correo = Column(String, unique=True)
     telefono = Column(String)
+    

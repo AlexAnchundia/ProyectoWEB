@@ -38,3 +38,5 @@ async def delete_sucursal(db: AsyncSession, sucursal_id: int):
     await db.delete(sucursal)
     await db.commit()
     return sucursal
+
+    

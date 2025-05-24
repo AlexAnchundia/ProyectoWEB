@@ -11,6 +11,7 @@ from app.services.sucursal import (
 )
 from app.api.routes.auth import get_current_user
 
+
 router = APIRouter()
 
 async def get_db():

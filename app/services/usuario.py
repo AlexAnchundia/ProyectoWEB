@@ -68,3 +68,4 @@ async def delete_usuario(db: AsyncSession, usuario_id: int):
     await db.delete(usuario)
     await db.commit()
     return usuario
+    

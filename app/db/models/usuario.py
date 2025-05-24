@@ -8,3 +8,4 @@ class Usuario(Base):
     username = Column(String, unique=True, index=True)
     contrasena_hash = Column(String)
     rol_id = Column(Integer, ForeignKey("rol.id_rol"))
+    
