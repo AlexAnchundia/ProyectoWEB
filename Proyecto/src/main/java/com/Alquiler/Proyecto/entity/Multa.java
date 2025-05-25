@@ -1,4 +1,4 @@
-package com.Alquiler.Proyecto.Entity;
+package com.alquiler.proyecto.entity;
 
 import java.time.LocalDate;
 
@@ -20,7 +20,7 @@ public class Multa {
 
     @ManyToOne
     @JoinColumn(name = "alquiler_id")
-    private Alquiler Alquiler;
+    private Alquiler alquiler;
 
     private String motivo;
     private Double monto;

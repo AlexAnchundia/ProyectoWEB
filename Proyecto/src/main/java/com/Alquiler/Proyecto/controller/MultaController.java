@@ -1,4 +1,4 @@
-package com.Alquiler.Proyecto.controller;
+package com.alquiler.proyecto.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Alquiler.Proyecto.Entity.Multa;
-import com.Alquiler.Proyecto.repository.MultaRepository;
+import com.alquiler.proyecto.entity.Multa;
+import com.alquiler.proyecto.repository.MultaRepository;
 
 @RestController
 @RequestMapping("/multas")

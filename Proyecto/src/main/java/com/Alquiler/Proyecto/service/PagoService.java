@@ -1,4 +1,4 @@
-package com.Alquiler.Proyecto.services;
+package com.alquiler.proyecto.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.Alquiler.Proyecto.Entity.Pago;
-import com.Alquiler.Proyecto.repository.PagoRepository;
+import com.alquiler.proyecto.entity.Pago;
+import com.alquiler.proyecto.repository.PagoRepository;
 
 @Service
 public class PagoService {
@@ -30,4 +30,5 @@ public class PagoService {
     public void deleteById(Long id) {
         pagoRepository.deleteById(id);
     }
+    
 }

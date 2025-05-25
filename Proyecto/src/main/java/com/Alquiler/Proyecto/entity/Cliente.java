@@ -1,4 +1,4 @@
-package com.Alquiler.Proyecto.Entity;
+package com.alquiler.proyecto.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

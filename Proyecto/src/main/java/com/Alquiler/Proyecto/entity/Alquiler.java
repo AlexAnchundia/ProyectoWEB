@@ -1,4 +1,4 @@
-package com.Alquiler.Proyecto.Entity;
+package com.alquiler.proyecto.entity;
 
 import java.time.LocalDate;
 

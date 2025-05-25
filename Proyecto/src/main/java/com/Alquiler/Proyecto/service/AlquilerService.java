@@ -1,4 +1,4 @@
-package com.Alquiler.Proyecto.services;
+package com.alquiler.proyecto.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.Alquiler.Proyecto.Entity.Alquiler;
-import com.Alquiler.Proyecto.repository.AlquilerRepository;
+import com.alquiler.proyecto.entity.Alquiler;
+import com.alquiler.proyecto.repository.AlquilerRepository;
 
 @Service
 public class AlquilerService {
