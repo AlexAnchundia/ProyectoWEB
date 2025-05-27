@@ -17,8 +17,7 @@ class combustible extends Model
     ];
 
     public function vehiculo(){
-        return $this->belongsTo(vehiculo::class, 'vehiculo_id', 'id_vehiculo' )
+        return $this->belongsTo(vehiculo::class, 'vehiculo_id', 'id_vehiculo' );
     }
-    
 
 }

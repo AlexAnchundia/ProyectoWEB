@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
-
-class Tipo_vehiculo extends Model
+class TipoVehiculo extends Model
 {
     protected $table = 'tipovehiculo';
     protected $primaryKey = 'id_tipo';

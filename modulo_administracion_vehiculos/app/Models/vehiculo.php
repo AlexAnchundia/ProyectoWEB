@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class vehiculo extends Model
 {
-    protected $table = 'vehiculos';
+    protected $table = 'vehiculo';
     protected $primaryKey = 'id_vehiculo';
     public $timestamps = 'true'; //guarda registros de actualizacion y creacion de la tabla
 
@@ -23,7 +23,7 @@ class vehiculo extends Model
     //Relaciones con vehiculos
     public function tipo()
     {
-        return $this->hasMany(Tipo_vehiculo::class, 'tipo_id', 'id_tipo');
+        return $this->hasMany(TipoVehiculo::class, 'tipo_id', 'id_tipo');
     }
     public function mantenimiento()
     {

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\TipoVehiculoController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VehiculoController;
 use App\Http\Controllers\MantenimientoController;
@@ -30,12 +30,3 @@ Route::post('/combustibles', [CombustibleController::class, 'store']);
 Route::get('/combustibles/{id}', [CombustibleController::class, 'show']);
 Route::put('/combustibles/{id}', [CombustibleController::class, 'update']);
 Route::delete('/combustibles/{id}', [CombustibleController::class, 'destroy']);
-
-
-
-// Tipos de Vehículo
-Route::get('/tipos-vehiculo', [TipoVehiculoController::class, 'index']);
-Route::post('/tipos-vehiculo', [TipoVehiculoController::class, 'store']);
-Route::get('/tipos-vehiculo/{id}', [TipoVehiculoController::class, 'show']);
-Route::put('/tipos-vehiculo/{id}', [TipoVehiculoController::class, 'update']);
-Route::delete('/tipos-vehiculo/{id}', [TipoVehiculoController::class, 'destroy']);
