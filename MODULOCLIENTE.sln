@@ -4,8 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 <<<<<<< HEAD
+<<<<<<< HEAD
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MODULOCLIENTE", "MODULOCLIENTE.csproj", "{C453624B-F02F-4C5E-8A6E-C61BA95AA786}"
 EndProject
+=======
+>>>>>>> e923399a9cf043042d4f3906cd11b5af7f25a780
 =======
 >>>>>>> e923399a9cf043042d4f3906cd11b5af7f25a780
 Global
@@ -17,12 +20,15 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 <<<<<<< HEAD
+<<<<<<< HEAD
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C453624B-F02F-4C5E-8A6E-C61BA95AA786}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C453624B-F02F-4C5E-8A6E-C61BA95AA786}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C453624B-F02F-4C5E-8A6E-C61BA95AA786}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C453624B-F02F-4C5E-8A6E-C61BA95AA786}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+=======
+>>>>>>> e923399a9cf043042d4f3906cd11b5af7f25a780
 =======
 >>>>>>> e923399a9cf043042d4f3906cd11b5af7f25a780
 EndGlobal

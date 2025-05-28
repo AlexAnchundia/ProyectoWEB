@@ -1,12 +1,16 @@
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization; // ✅ ESTA LÍNEA ES OBLIGATORIA
 using Microsoft.EntityFrameworkCore;
 using MODULOCLIENTE.Data;
 using MODULOCLIENTE.Models;
 using MODULOCLIENTE.DTOs;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+
 
 namespace MODULOCLIENTE.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ClientesController : ControllerBase
@@ -86,13 +90,21 @@ namespace MODULOCLIENTE.Controllers
         [HttpPatch("{id:int}")]
         public async Task<IActionResult> Patch(int id, [FromBody] JsonPatchDocument<Cliente> patch)
         {
-            if (patch == null) return BadRequest();
-            var c = await _context.Clientes.FindAsync(id);
-            if (c == null) return NotFound();
-            patch.ApplyTo(c);
-            if (!TryValidateModel(c)) return BadRequest(ModelState);
-            await _context.SaveChangesAsync();
-            return NoContent();
+                if (patch == null) return BadRequest();
+
+                var cliente = await _context.Clientes.FindAsync(id);
+                if (cliente == null) return NotFound();
+
+                // Aplicar el patch y verificar errores
+                patch.ApplyTo(cliente, ModelState);
+
+                if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+                // Guardar cambios
+                await _context.SaveChangesAsync();
+                return NoContent();
+
         }
 
         // DELETE api/Clientes/2

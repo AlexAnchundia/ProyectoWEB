@@ -1,12 +1,13 @@
-using System;
-using System.Linq;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using System.Text;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models; // << Agregar para OpenApi
 using MODULOCLIENTE.Data;
 using MODULOCLIENTE.Models;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 internal class Program
 {
@@ -14,26 +15,80 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // 1) Configurar DbContext con PostgreSQL (cadena en appsettings.json)
+        // 1) Configurar DbContext con PostgreSQL
         builder.Services.AddDbContext<DataBase>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-        // 2) Agregar servicios para Swagger y controllers
+        // 2) Agregar servicios necesarios
+        builder.Services.AddControllers()
+            .AddNewtonsoftJson();
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
-        builder.Services.AddControllers();
+
+        // 3) Configurar Swagger con seguridad JWT
+        builder.Services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "MODULOCLIENTE API", Version = "v1" });
+
+            // Definir esquema de seguridad JWT Bearer
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                Description = "Ingrese 'Bearer' seguido del token JWT. Ejemplo: Bearer eyJhbGciOiJIUzI1NiIs...",
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "Bearer"
+            });
+
+            // Requerir el esquema de seguridad para todos los endpoints
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference 
+                        { 
+                            Type = ReferenceType.SecurityScheme, 
+                            Id = "Bearer" 
+                        },
+                        Scheme = "oauth2",
+                        Name = "Bearer",
+                        In = ParameterLocation.Header,
+
+                    },
+                    new List<string>()
+                }
+            });
+        });
+
+        // 4) Configurar JWT Authentication
+        var key = "clave-super-secreta-recontra-larga-1234567890!!"; // Cambiar en producción
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+                };
+            });
 
         var app = builder.Build();
 
-        // 3) Middleware HTTP
+        // 5) Middleware
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
         app.UseHttpsRedirection();
 
-        // 4) Seed de datos al iniciar
+        app.UseAuthentication(); // 👈 Esto debe ir antes de UseAuthorization
+        app.UseAuthorization();
+
+        // 6) Inicializar base de datos
         using (var scope = app.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<DataBase>();
@@ -44,14 +99,14 @@ internal class Program
             }
             else
             {
-                Console.WriteLine("❌ No pude conectar a PostgreSQL");
+                Console.WriteLine("❌ No se pudo conectar a PostgreSQL");
             }
         }
 
-        // 5) Montar controllers con atributos [ApiController]
+        // 7) Mapear controladores
         app.MapControllers();
 
-        // 6) Endpoints de prueba (opcional)
+        // 8) Rutas de prueba opcionales
         app.MapPost("/api/clientes/test-insert", async (DataBase db) =>
         {
             var cliente = new Cliente
@@ -73,24 +128,7 @@ internal class Program
             return cliente is not null ? Results.Ok(cliente) : Results.NotFound();
         });
 
-        // 7) Endpoint existente de WeatherForecast
-        app.MapGet("/weatherforecast", () =>
-        {
-            var summaries = new[]
-            {
-                "Freezing", "Bracing", "Chilly", "Cool", "Mild",
-                "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-            };
-            return Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast(
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                )).ToArray();
-        })
-        .WithName("GetWeatherForecast");
-
-        // 8) Ejecutar la aplicación
+        // 9) Ejecutar app
         app.Run();
     }
 }

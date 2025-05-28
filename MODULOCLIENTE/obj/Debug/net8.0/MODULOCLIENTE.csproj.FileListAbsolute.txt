@@ -1,7 +1,0 @@
-C:\Users\Usuario\Desktop\MODULO CLIENTE\MODULOCLIENTE\obj\Debug\net8.0\MODULOCLIENTE.csproj.AssemblyReference.cache
-C:\Users\Usuario\Desktop\MODULO CLIENTE\MODULOCLIENTE\obj\Debug\net8.0\MODULOCLIENTE.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Usuario\Desktop\MODULO CLIENTE\MODULOCLIENTE\obj\Debug\net8.0\MODULOCLIENTE.AssemblyInfoInputs.cache
-C:\Users\Usuario\Desktop\MODULO CLIENTE\MODULOCLIENTE\obj\Debug\net8.0\MODULOCLIENTE.AssemblyInfo.cs
-C:\Users\Usuario\Desktop\MODULO CLIENTE\MODULOCLIENTE\obj\Debug\net8.0\MODULOCLIENTE.csproj.CoreCompileInputs.cache
-C:\Users\Usuario\Desktop\MODULO CLIENTE\MODULOCLIENTE\obj\Debug\net8.0\MODULOCLIENTE.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Usuario\Desktop\MODULO CLIENTE\MODULOCLIENTE\obj\Debug\net8.0\MODULOCLIENTE.MvcApplicationPartsAssemblyInfo.cache

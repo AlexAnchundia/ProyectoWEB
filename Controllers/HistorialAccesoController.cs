@@ -1,10 +1,15 @@
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization; // ✅ ESTA LÍNEA ES OBLIGATORIA
 using Microsoft.EntityFrameworkCore;
 using MODULOCLIENTE.Data;
 using MODULOCLIENTE.Models;
+using MODULOCLIENTE.DTOs;
+
 
 namespace MODULOCLIENTE.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class EvaluacionClienteController : ControllerBase

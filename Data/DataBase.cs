@@ -6,9 +6,7 @@ using MODULOCLIENTE.Models;
 
 namespace MODULOCLIENTE.Data
 {
-    /// <summary>
-    /// Factory para EF Core en tiempo de dise�o.
-    /// </summary>
+
     public class DataBase : DbContext
     {
         // Constructor principal inyectado por DI
