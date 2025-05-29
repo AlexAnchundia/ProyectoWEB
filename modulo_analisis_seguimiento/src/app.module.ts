@@ -15,16 +15,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     LogSistemaModule,
     ReporteUsoModule,
     SoporteClienteModule,
-
+    // postgresql://postgres:[YOUR-PASSWORD]@db.pjegypemewddlxpgnvoy.supabase.co:5432/postgres
     TypeOrmModule.forRoot({
-      type: 'postgres',               
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '123123',
-      database: 'alquiler_autos',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      // synchronize: true,           
+                                                                                                                            
     }),
 
   ],
