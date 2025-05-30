@@ -17,10 +17,17 @@ class LoginRequest(BaseModel):
     username: str
     password: str
 
+def credentials_exception():
+    return HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="No se pudo validar credenciales",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+
 @router.post("/login")
 async def login(
     login_req: LoginRequest,
-    db: AsyncSession = Depends(get_db)  
+    db: AsyncSession = Depends(get_db)
 ):
     user = await authenticate_user(db, login_req.username, login_req.password)
     if not user:
@@ -31,26 +38,18 @@ async def login(
 
 async def get_current_user(
     token: str = Depends(oauth2_scheme),
-    db: AsyncSession = Depends(get_db)  
+    db: AsyncSession = Depends(get_db)
 ):
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="No se pudo validar credenciales",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         username = payload.get("sub")
         if not isinstance(username, str):
-            raise credentials_exception
+            raise credentials_exception()
     except JWTError:
-        raise credentials_exception
+        raise credentials_exception()
 
     result = await db.execute(select(Usuario).where(Usuario.username == username))
     user = result.scalars().first()
     if user is None:
-        raise credentials_exception
+        raise credentials_exception()
     return user
-
-
-    

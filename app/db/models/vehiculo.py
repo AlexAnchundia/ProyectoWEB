@@ -8,5 +8,5 @@ class Vehiculo(Base):
     marca = Column(String, nullable=False)
     modelo = Column(String, nullable=False)
     anio = Column(Integer, nullable=False)
-    tipo_id = Column(String, nullable=False)  
+    tipo_id = Column(String, nullable=False)  # Simulado como texto
     estado = Column(String, nullable=False)
