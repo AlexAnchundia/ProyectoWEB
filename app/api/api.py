@@ -2,8 +2,9 @@ from fastapi import APIRouter
 from app.api.routes import empleados, sucursales, vehiculos_sucursal, roles, usuarios, auth
 from app.api.routes.ia import router as ia_router
 
-
+#Todas las rutas de la API se agrupan en un solo router
 api_router = APIRouter()
+#Define los prefijos y etiquetas para cada grupo de rutas
 api_router.include_router(ia_router, prefix="/ia", tags=["IA"])
 api_router.include_router(empleados.router, prefix="/empleados", tags=["Empleados"])
 api_router.include_router(sucursales.router, prefix="/sucursales", tags=["Sucursales"])

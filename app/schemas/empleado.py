@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+# DTO para el modelo Empleado
 class EmpleadoBase(BaseModel):
     nombre: str
     cargo: str

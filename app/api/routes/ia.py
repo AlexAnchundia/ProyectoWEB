@@ -8,6 +8,7 @@ from app.db.base import get_db
 
 router = APIRouter()
 
+# Rutas para generar resúmenes de diferentes entidades
 @router.get("/resumen/empleados/")
 async def resumen_empleados(db=Depends(get_db)):
     empleados = await get_empleados(db)

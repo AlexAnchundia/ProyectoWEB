@@ -3,6 +3,7 @@ import pytest
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from app.db.base import Base, get_db
 from app.main import app
+from sqlalchemy.orm import declarative_base
 
 TEST_DATABASE_URL = "sqlite+aiosqlite:///./test_db.sqlite"
 

@@ -10,6 +10,7 @@ from app.services.empleado import (
     update_empleado,
     delete_empleado,
 )
+#rutas de empleados
 from app.api.routes.auth import get_current_user
 router = APIRouter()
 

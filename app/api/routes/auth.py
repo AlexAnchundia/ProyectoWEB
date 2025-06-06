@@ -8,6 +8,7 @@ from sqlalchemy.future import select
 from app.services.auth import authenticate_user
 from pydantic import BaseModel
 from app.db.base import get_db
+# validacion de datos y autenticacion de usuarios
 
 router = APIRouter()
 

@@ -25,6 +25,7 @@ async def create_empleado(db: AsyncSession, empleado: EmpleadoCreate):
     await db.commit()
     await db.refresh(nuevo)
     return nuevo
+
 async def update_empleado(db: AsyncSession, empleado_id: int, data: EmpleadoCreate):
     empleado = await get_empleado_by_id(db, empleado_id)
     if not empleado:

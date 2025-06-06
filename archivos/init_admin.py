@@ -1,3 +1,4 @@
+# // Creacion de Administrador Inicial
 import asyncio
 from app.db.base import SessionLocal, init_db
 from app.core.security import hash_password

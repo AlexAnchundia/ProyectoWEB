@@ -2,6 +2,7 @@ from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.models.usuario import Usuario
 from app.core.security import verify_password
+# Authenticate user by checking username and password
 
 async def authenticate_user(db: AsyncSession, username: str, password: str):
     result = await db.execute(select(Usuario).where(Usuario.username == username))

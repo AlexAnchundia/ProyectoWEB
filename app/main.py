@@ -13,6 +13,8 @@ for logger_name in [
 ]:
     logging.getLogger(logger_name).setLevel(logging.CRITICAL)
     logging.getLogger(logger_name).propagate = False
+
+#Creación de la aplicación FastAPI
 app = FastAPI(title="Administración Interna - Alquiler Autos")
 
 @app.on_event("startup")
@@ -23,4 +25,4 @@ async def startup():
 app.include_router(api_router)
 
 if __name__ == "__main__":
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True) # 127.0.0.1:8000
