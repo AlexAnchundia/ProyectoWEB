@@ -2,10 +2,26 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class vehiculo extends Model
+/**
+ * @OA\Schema(
+ *     schema="Vehiculo",
+ *     type="object",
+ *     title="Vehiculo",
+ *     required={"placa", "marca", "modelo", "año", "tipo_id", "estado"},
+ *     @OA\Property(property="id_vehiculo", type="integer", readOnly=true, example=1),
+ *     @OA\Property(property="placa", type="string", example="ABC1234"),
+ *     @OA\Property(property="marca", type="string", example="Toyota"),
+ *     @OA\Property(property="modelo", type="string", example="Corolla"),
+ *     @OA\Property(property="año", type="integer", example=2022),
+ *     @OA\Property(property="tipo_id", type="integer", example=3),
+ *     @OA\Property(property="estado", type="string", example="Disponible")
+ * )
+ */
+class Vehiculo extends Model
 {
+    use HasFactory;
     protected $table = 'vehiculo';
     protected $primaryKey = 'id_vehiculo';
     public $timestamps = 'true'; //guarda registros de actualizacion y creacion de la tabla

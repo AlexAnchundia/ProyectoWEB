@@ -15,7 +15,8 @@ import { EncuestaSatisfaccion } from './encuesta-satisfaccion/entities/encuesta-
 import { AuthModule } from './auth/auth.module';
 import { EncuestaSatisfaccionController } from './encuesta-satisfaccion/encuesta-satisfaccion.controller';
 import { Alquiler } from './entity/alquiler.entity';
-import { Cliente } from './entity/cliente.entity';
+import { ClienteModule } from './cliente/cliente.module';
+import { Cliente } from './cliente/entities/cliente.entity';
 
 @Module({
   imports: [
@@ -31,7 +32,8 @@ import { Cliente } from './entity/cliente.entity';
       username: 'postgres.pjegypemewddlxpgnvoy',
       password: '123123',
       database: 'postgres',
-      entities: [SoporteCliente, ReporteUso, LogSistema, Incidente, EncuestaSatisfaccion, Alquiler, Cliente],
+      entities: [SoporteCliente, ReporteUso, LogSistema, Incidente, EncuestaSatisfaccion, Alquiler, Cliente
+      ],
       ssl: true,
       extra: {
         ssl: {
@@ -39,6 +41,7 @@ import { Cliente } from './entity/cliente.entity';
         } }
       }),
     AuthModule,
+    ClienteModule,
 
   ],
   controllers: [AppController],

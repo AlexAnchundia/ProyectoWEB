@@ -18,8 +18,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255|unique:usuario',
-            'password' => 'required|string|min:6|confirmed',
-            'empleado_id' => 'required|integer',
+            'password' => 'required|string|min:6',
         ]);
 
         if ($validator->fails()) {
@@ -30,7 +29,7 @@ class AuthController extends Controller
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'empleado_id' => $request->empleado_id,
-            'rol_id' => 4, // Fijamos el rol de cliente
+            'rol_id' => 3, // Fijamos el rol de cliente
         ]);
 
         $token = auth()->login($user);

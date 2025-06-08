@@ -18,10 +18,11 @@ import { EncuestaSatisfaccionService } from './encuesta-satisfaccion.service';
 import { CreateEncuestaSatisfaccionDto } from './dto/create-encuesta-satisfaccion.dto';
 import { UpdateEncuestaSatisfaccionDto } from './dto/update-encuesta-satisfaccion.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Encuesta Satisfacción') 
 @ApiBearerAuth() 
-@UseGuards(JwtAuthGuard)
+@UseGuards(AuthGuard('jwt'))
 @Controller('encuesta-satisfaccion')
 export class EncuestaSatisfaccionController {
   constructor(

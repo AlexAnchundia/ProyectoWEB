@@ -16,7 +16,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('Soporte al Cliente') 
 @ApiBearerAuth() 
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 @Controller('soporte-cliente')
 export class SoporteClienteController {
   constructor(private readonly soporteClienteService: SoporteClienteService) {}

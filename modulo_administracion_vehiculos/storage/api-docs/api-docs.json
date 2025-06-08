@@ -1,0 +1,1243 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Gestión de Vehículos",
+        "description": "Documentación de la API del sistema de administración de vehículos",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "Servidor local"
+        }
+    ],
+    "paths": {
+        "/api/combustibles": {
+            "get": {
+                "tags": [
+                    "Combustible"
+                ],
+                "summary": "Lista todos los combustibles",
+                "description": "Obtiene todos los registros de combustible con su vehículo asociado",
+                "operationId": "13dbfa5a6b5170f85a15c1fb752f1981",
+                "responses": {
+                    "200": {
+                        "description": "Lista de combustibles",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Combustible"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Combustible"
+                ],
+                "summary": "Crea un nuevo combustible",
+                "description": "Crea un registro de combustible asociado a un vehículo existente",
+                "operationId": "b1de33a506b3002c90a27663e401d82e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "vehiculo_id",
+                                    "tipo",
+                                    "cantidad"
+                                ],
+                                "properties": {
+                                    "vehiculo_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "tipo": {
+                                        "type": "string",
+                                        "example": "Gasolina"
+                                    },
+                                    "cantidad": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 50.5
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Combustible creado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Combustible"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Vehículo no encontrado o datos inválidos"
+                    }
+                }
+            }
+        },
+        "/api/combustibles/{id}": {
+            "get": {
+                "tags": [
+                    "Combustible"
+                ],
+                "summary": "Obtiene un combustible por ID",
+                "description": "Devuelve un registro de combustible específico con su vehículo asociado",
+                "operationId": "863011da5e570d97a7d43cba815ab24b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del combustible",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Datos del combustible",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Combustible"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Combustible no encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Combustible"
+                ],
+                "summary": "Actualiza un combustible existente",
+                "description": "Actualiza un registro de combustible por ID",
+                "operationId": "6104f8a34b1558f7ca85a25d5c852160",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del combustible a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "vehiculo_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "tipo": {
+                                        "type": "string",
+                                        "example": "Diesel"
+                                    },
+                                    "cantidad": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 40
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Combustible actualizado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Combustible"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Combustible no encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Combustible"
+                ],
+                "summary": "Elimina un combustible",
+                "description": "Elimina un registro de combustible por ID",
+                "operationId": "7d694ea05c2831b71f796cd1d6b91060",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del combustible a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Combustible eliminado correctamente"
+                    },
+                    "404": {
+                        "description": "Combustible no encontrado"
+                    }
+                }
+            }
+        },
+        "/api/mantenimientos": {
+            "get": {
+                "tags": [
+                    "Mantenimiento"
+                ],
+                "summary": "Lista todos los mantenimientos",
+                "description": "Obtiene todos los registros de mantenimiento con su vehículo asociado",
+                "operationId": "98eb8bd3b5c15a4078751d0c2f9d12ad",
+                "responses": {
+                    "200": {
+                        "description": "Lista de mantenimientos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Mantenimiento"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Mantenimiento"
+                ],
+                "summary": "Crea un nuevo mantenimiento",
+                "description": "Crea un registro de mantenimiento asociado a un vehículo existente",
+                "operationId": "2e7dbf32fd0b9bd23aa7c42ce7a2d530",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "vehiculo_id",
+                                    "descripcion",
+                                    "fecha"
+                                ],
+                                "properties": {
+                                    "vehiculo_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Cambio de aceite"
+                                    },
+                                    "fecha": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-06-10"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Mantenimiento creado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Mantenimiento"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Vehículo no encontrado o datos inválidos"
+                    }
+                }
+            }
+        },
+        "/api/mantenimientos/{id}": {
+            "get": {
+                "tags": [
+                    "Mantenimiento"
+                ],
+                "summary": "Obtiene un mantenimiento por ID",
+                "description": "Devuelve un registro de mantenimiento específico con su vehículo asociado",
+                "operationId": "f1eccfea98c96e09c78b65db74a6c46e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del mantenimiento",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Datos del mantenimiento",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Mantenimiento"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Mantenimiento no encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Mantenimiento"
+                ],
+                "summary": "Actualiza un mantenimiento existente",
+                "description": "Actualiza un registro de mantenimiento por ID",
+                "operationId": "7b682cf6eb6fd45d9f93d8d5132d63f5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del mantenimiento a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "vehiculo_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Revisión de frenos"
+                                    },
+                                    "fecha": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-06-11"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Mantenimiento actualizado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Mantenimiento"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Mantenimiento no encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Mantenimiento"
+                ],
+                "summary": "Elimina un mantenimiento",
+                "description": "Elimina un registro de mantenimiento por ID",
+                "operationId": "d624e7b533b922ada73de58f62ed764d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del mantenimiento a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Mantenimiento eliminado correctamente"
+                    },
+                    "404": {
+                        "description": "Mantenimiento no encontrado"
+                    }
+                }
+            }
+        },
+        "/api/seguros": {
+            "get": {
+                "tags": [
+                    "Seguro"
+                ],
+                "summary": "Lista todos los seguros",
+                "description": "Obtiene todos los registros de seguros con su vehículo asociado",
+                "operationId": "560a996edeccb88dec388fa203eb38f7",
+                "responses": {
+                    "200": {
+                        "description": "Lista de seguros",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Seguro"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Seguro"
+                ],
+                "summary": "Crea un nuevo seguro",
+                "description": "Crea un registro de seguro asociado a un vehículo existente",
+                "operationId": "b4a9937038388bb0f9b60cc36b89e850",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "vehiculo_id",
+                                    "tipo",
+                                    "fecha_inicio",
+                                    "fecha_fin"
+                                ],
+                                "properties": {
+                                    "vehiculo_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "tipo": {
+                                        "type": "string",
+                                        "example": "Seguro contra todo riesgo"
+                                    },
+                                    "fecha_inicio": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-01-01"
+                                    },
+                                    "fecha_fin": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2026-01-01"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Seguro creado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Seguro"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Vehículo no encontrado o datos inválidos"
+                    }
+                }
+            }
+        },
+        "/api/seguros/{id}": {
+            "get": {
+                "tags": [
+                    "Seguro"
+                ],
+                "summary": "Obtiene un seguro por ID",
+                "description": "Devuelve un registro de seguro específico con su vehículo asociado",
+                "operationId": "0862b6f58c6d0cd47bf9c484e5e04e2e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del seguro",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Datos del seguro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Seguro"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Seguro no encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Seguro"
+                ],
+                "summary": "Actualiza un seguro existente",
+                "description": "Actualiza un registro de seguro por ID",
+                "operationId": "9b0fd95798e599c7dd7b91d15b30d6a8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del seguro a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "vehiculo_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "tipo": {
+                                        "type": "string",
+                                        "example": "Seguro a terceros"
+                                    },
+                                    "fecha_inicio": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-01-01"
+                                    },
+                                    "fecha_fin": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2026-01-01"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Seguro actualizado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Seguro"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Seguro no encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Seguro"
+                ],
+                "summary": "Elimina un seguro",
+                "description": "Elimina un registro de seguro por ID",
+                "operationId": "235a20f5d5ee3ae9130b088da481736a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del seguro a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Seguro eliminado correctamente"
+                    },
+                    "404": {
+                        "description": "Seguro no encontrado"
+                    }
+                }
+            }
+        },
+        "/api/tipos-vehiculos": {
+            "get": {
+                "tags": [
+                    "TipoVehiculo"
+                ],
+                "summary": "Listar todos los tipos de vehículos",
+                "operationId": "ab2a7c33953d0246591f5198d2b5e52f",
+                "responses": {
+                    "200": {
+                        "description": "Lista de tipos de vehículos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TipoVehiculo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "TipoVehiculo"
+                ],
+                "summary": "Crear un tipo de vehículo",
+                "operationId": "aefb224d9164681aabe2e5c9047a01a6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "descripcion",
+                                    "capacidad",
+                                    "transmision"
+                                ],
+                                "properties": {
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "SUV"
+                                    },
+                                    "capacidad": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "transmision": {
+                                        "type": "string",
+                                        "example": "Automática"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Tipo de vehículo creado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TipoVehiculo"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tipos-vehiculos/{id}": {
+            "get": {
+                "tags": [
+                    "TipoVehiculo"
+                ],
+                "summary": "Obtener un tipo de vehículo por ID",
+                "operationId": "6a16883994293921e64877514f96ef37",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tipo de vehículo encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TipoVehiculo"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "TipoVehiculo"
+                ],
+                "summary": "Actualizar un tipo de vehículo",
+                "operationId": "c01e3bd8d90fb1c58f7b30ac0f05f6ea",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "descripcion": {
+                                        "type": "string",
+                                        "example": "Pickup"
+                                    },
+                                    "capacidad": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "transmision": {
+                                        "type": "string",
+                                        "example": "Manual"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tipo de vehículo actualizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TipoVehiculo"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tipo no encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "TipoVehiculo"
+                ],
+                "summary": "Eliminar un tipo de vehículo",
+                "operationId": "318cedb235fa774afa27d9338fd40c87",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Eliminado correctamente"
+                    },
+                    "404": {
+                        "description": "No encontrado"
+                    }
+                }
+            }
+        },
+        "/api/vehiculos": {
+            "get": {
+                "tags": [
+                    "Vehículos"
+                ],
+                "summary": "Listar todos los vehículos",
+                "operationId": "149b9ba714037a3dc86c8d245646f6fa",
+                "responses": {
+                    "200": {
+                        "description": "Lista de vehículos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Vehiculo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Vehículos"
+                ],
+                "summary": "Crear un vehículo",
+                "operationId": "04854b3c96cbe81512a35a4340be89d6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "marca",
+                                    "modelo",
+                                    "placa",
+                                    "tipo_id"
+                                ],
+                                "properties": {
+                                    "marca": {
+                                        "type": "string",
+                                        "example": "Toyota"
+                                    },
+                                    "modelo": {
+                                        "type": "string",
+                                        "example": "Hilux"
+                                    },
+                                    "placa": {
+                                        "type": "string",
+                                        "example": "ABC123"
+                                    },
+                                    "tipo_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Vehículo creado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Vehiculo"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Tipo de vehículo no válido"
+                    }
+                }
+            }
+        },
+        "/api/vehiculos/{id}": {
+            "get": {
+                "tags": [
+                    "Vehículos"
+                ],
+                "summary": "Obtener un vehículo por ID",
+                "operationId": "74d0083b6d8cbc7bd03af2e47b5c4a3b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Vehículo encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "vehiculo": {
+                                            "$ref": "#/components/schemas/Vehiculo"
+                                        },
+                                        "tipo_vehiculo": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Vehículo no encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Vehículos"
+                ],
+                "summary": "Actualizar un vehículo",
+                "operationId": "8ec2230377ed40f3ce7542ad3163463e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "marca": {
+                                        "type": "string",
+                                        "example": "Chevrolet"
+                                    },
+                                    "modelo": {
+                                        "type": "string",
+                                        "example": "Dmax"
+                                    },
+                                    "placa": {
+                                        "type": "string",
+                                        "example": "XYZ789"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Vehículo actualizado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Vehículos"
+                ],
+                "summary": "Eliminar un vehículo",
+                "operationId": "76e387e5d46c7b473cd89072b5ac88fe",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Vehículo eliminado"
+                    },
+                    "404": {
+                        "description": "Vehículo no encontrado"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "TipoVehiculo": {
+                "required": [
+                    "descripción",
+                    "capacidad",
+                    "transmisión"
+                ],
+                "properties": {
+                    "id_tipo": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "descripción": {
+                        "type": "string",
+                        "example": "Camioneta"
+                    },
+                    "capacidad": {
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "transmisión": {
+                        "type": "string",
+                        "example": "Manual"
+                    }
+                },
+                "type": "object"
+            },
+            "Combustible": {
+                "required": [
+                    "vehiculo_id",
+                    "tipo",
+                    "cantidad",
+                    "fecha"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "vehiculo_id": {
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "tipo": {
+                        "type": "string",
+                        "example": "Diesel"
+                    },
+                    "cantidad": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 40.5
+                    },
+                    "fecha": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-06-01"
+                    }
+                },
+                "type": "object"
+            },
+            "Mantenimiento": {
+                "required": [
+                    "vehiculo_id",
+                    "fecha_inicio",
+                    "fecha_fin",
+                    "descripción",
+                    "costo"
+                ],
+                "properties": {
+                    "id_mantenimiento": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "vehiculo_id": {
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "fecha_inicio": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-06-01"
+                    },
+                    "fecha_fin": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-06-03"
+                    },
+                    "descripción": {
+                        "type": "string",
+                        "example": "Cambio de aceite y filtros"
+                    },
+                    "costo": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 120.5
+                    }
+                },
+                "type": "object"
+            },
+            "Seguro": {
+                "required": [
+                    "vehiculo_id",
+                    "compañía",
+                    "tipo_cobertura",
+                    "fecha_inicio",
+                    "fecha_fin"
+                ],
+                "properties": {
+                    "id_seguro": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "vehiculo_id": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "compañía": {
+                        "type": "string",
+                        "example": "Seguros Quito S.A."
+                    },
+                    "tipo_cobertura": {
+                        "type": "string",
+                        "example": "Todo riesgo"
+                    },
+                    "fecha_inicio": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-01-01"
+                    },
+                    "fecha_fin": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-01-01"
+                    }
+                },
+                "type": "object"
+            },
+            "Usuario": {
+                "required": [
+                    "empleado_id",
+                    "username",
+                    "password",
+                    "rol_id"
+                ],
+                "properties": {
+                    "id_usuario": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "empleado_id": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "username": {
+                        "type": "string",
+                        "example": "usuario123"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password",
+                        "example": "secret"
+                    },
+                    "rol_id": {
+                        "type": "integer",
+                        "example": 2
+                    }
+                },
+                "type": "object"
+            },
+            "Vehiculo": {
+                "title": "Vehiculo",
+                "required": [
+                    "placa",
+                    "marca",
+                    "modelo",
+                    "año",
+                    "tipo_id",
+                    "estado"
+                ],
+                "properties": {
+                    "id_vehiculo": {
+                        "type": "integer",
+                        "readOnly": true,
+                        "example": 1
+                    },
+                    "placa": {
+                        "type": "string",
+                        "example": "ABC1234"
+                    },
+                    "marca": {
+                        "type": "string",
+                        "example": "Toyota"
+                    },
+                    "modelo": {
+                        "type": "string",
+                        "example": "Corolla"
+                    },
+                    "año": {
+                        "type": "integer",
+                        "example": 2022
+                    },
+                    "tipo_id": {
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "estado": {
+                        "type": "string",
+                        "example": "Disponible"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Combustible",
+            "description": "Combustible"
+        },
+        {
+            "name": "Mantenimiento",
+            "description": "Mantenimiento"
+        },
+        {
+            "name": "Seguro",
+            "description": "Seguro"
+        },
+        {
+            "name": "TipoVehiculo",
+            "description": "TipoVehiculo"
+        },
+        {
+            "name": "Vehículos",
+            "description": "Vehículos"
+        }
+    ]
+}

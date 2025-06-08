@@ -1,4 +1,4 @@
-import { Cliente } from 'src/entity/cliente.entity';
+import { Cliente } from 'src/cliente/entities/cliente.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 
 @Entity('soportecliente')
