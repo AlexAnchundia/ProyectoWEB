@@ -1,5 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-// import { Alquiler } from '../../alquiler/entities/alquiler.entity'; // suponer que existe
 
 @Entity()
 export class EncuestaSatisfaccion {

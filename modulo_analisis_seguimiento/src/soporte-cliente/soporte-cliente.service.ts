@@ -17,7 +17,10 @@ export class SoporteClienteService {
   }
 
   findAll() {
-    return this.soporteRepo.find();
+    return this.soporteRepo.find( { 
+      relations: ['cliente']
+    
+    });
   }
 
   findOne(id: number) {

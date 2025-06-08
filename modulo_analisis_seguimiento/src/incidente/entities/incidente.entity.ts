@@ -1,5 +1,6 @@
+import { Alquiler } from "src/entity/alquiler.entity";
 import { text } from "stream/consumers";
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 
 
@@ -19,5 +20,9 @@ export class Incidente {
 
     @Column({ length: 50 })
     tipo: string;
+
+    @ManyToOne(() => Alquiler, (alquiler) => alquiler.incidente)
+    @JoinColumn({ name: 'alquiler_id' })
+    alquiler: Alquiler[];
 
 }

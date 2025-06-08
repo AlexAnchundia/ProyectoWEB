@@ -7,6 +7,15 @@ import { LogSistemaModule } from './log-sistema/log-sistema.module';
 import { ReporteUsoModule } from './reporte-uso/reporte-uso.module';
 import { SoporteClienteModule } from './soporte-cliente/soporte-cliente.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SoporteCliente } from './soporte-cliente/entities/soporte-cliente.entity';
+import { ReporteUso } from './reporte-uso/entities/reporte-uso.entity';
+import { LogSistema } from './log-sistema/entities/log-sistema.entity';
+import { Incidente } from './incidente/entities/incidente.entity';
+import { EncuestaSatisfaccion } from './encuesta-satisfaccion/entities/encuesta-satisfaccion.entity';
+import { AuthModule } from './auth/auth.module';
+import { EncuestaSatisfaccionController } from './encuesta-satisfaccion/encuesta-satisfaccion.controller';
+import { Alquiler } from './entity/alquiler.entity';
+import { Cliente } from './entity/cliente.entity';
 
 @Module({
   imports: [
@@ -15,10 +24,21 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     LogSistemaModule,
     ReporteUsoModule,
     SoporteClienteModule,
-    // postgresql://postgres:[YOUR-PASSWORD]@db.pjegypemewddlxpgnvoy.supabase.co:5432/postgres
     TypeOrmModule.forRoot({
-                                                                                                                            
-    }),
+      type: 'postgres',
+      host: 'aws-0-us-east-2.pooler.supabase.com',
+      port: 6543,
+      username: 'postgres.pjegypemewddlxpgnvoy',
+      password: '123123',
+      database: 'postgres',
+      entities: [SoporteCliente, ReporteUso, LogSistema, Incidente, EncuestaSatisfaccion, Alquiler, Cliente],
+      ssl: true,
+      extra: {
+        ssl: {
+          rejectUnauthorized: false,
+        } }
+      }),
+    AuthModule,
 
   ],
   controllers: [AppController],

@@ -17,7 +17,7 @@ export class IncidenteService {
   }
 
   findAll() {
-    return this.incidenteRepo.find();
+    return this.incidenteRepo.find({ relations : ['alquiler']});
   }
 
   findOne(id: number) {
