@@ -2,6 +2,7 @@ package com.alquiler.proyecto.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,47 +14,80 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alquiler.proyecto.dto.InspeccionDTO;
+import com.alquiler.proyecto.entity.Alquiler;
 import com.alquiler.proyecto.entity.Inspeccion;
-import com.alquiler.proyecto.repository.InspeccionRepository;
+import com.alquiler.proyecto.repository.AlquilerRepository;
+import com.alquiler.proyecto.service.InspeccionService;
 
 @RestController
 @RequestMapping("/inspecciones")
 public class InspeccionController {
 
     @Autowired
-    private InspeccionRepository inspeccionRepository;
+    private InspeccionService inspeccionService;
+    @Autowired
+    private AlquilerRepository alquilerRepository;
 
     @GetMapping
-    public List<Inspeccion> obtenerTodas() {
-        return inspeccionRepository.findAll();
+    public List<InspeccionDTO> obtenerTodas() {
+        return inspeccionService.findAll().stream()
+            .map(this::toDTO)
+            .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public Inspeccion obtenerPorId(@PathVariable Long id) {
-        return inspeccionRepository.findById(id).orElse(null);
+    public InspeccionDTO obtenerPorId(@PathVariable Long id) {
+        return inspeccionService.findById(id)
+            .map(this::toDTO)
+            .orElse(null);
     }
 
     @PostMapping
-    public Inspeccion crear(@RequestBody Inspeccion inspeccion) {
-        return inspeccionRepository.save(inspeccion);
+    public InspeccionDTO crear(@RequestBody InspeccionDTO dto) {
+        Inspeccion inspeccion = toEntity(dto);
+        return toDTO(inspeccionService.save(inspeccion));
     }
 
     @PutMapping("/{id}")
-    public Inspeccion actualizar(@PathVariable Long id, @RequestBody Inspeccion inspeccionActualizada) {
-        Optional<Inspeccion> insOpt = inspeccionRepository.findById(id);
+    public InspeccionDTO actualizar(@PathVariable Long id, @RequestBody InspeccionDTO dto) {
+        Optional<Inspeccion> insOpt = inspeccionService.findById(id);
         if (insOpt.isPresent()) {
             Inspeccion ins = insOpt.get();
-            ins.setFecha(inspeccionActualizada.getFecha());
-            ins.setObservaciones(inspeccionActualizada.getObservaciones());
-            ins.setEstadoVehiculo(inspeccionActualizada.getEstadoVehiculo());
-            ins.setAlquiler(inspeccionActualizada.getAlquiler());
-            return inspeccionRepository.save(ins);
+            ins.setFecha(dto.getFecha());
+            ins.setObservaciones(dto.getObservaciones());
+            ins.setEstadoVehiculo(dto.getEstadoVehiculo());
+            Alquiler alquiler = alquilerRepository.findById(dto.getAlquilerId()).orElse(null);
+            ins.setAlquiler(alquiler);
+            return toDTO(inspeccionService.save(ins));
         }
         return null;
     }
 
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable Long id) {
-        inspeccionRepository.deleteById(id);
+        inspeccionService.deleteById(id);
+    }
+
+    // Métodos de mapeo
+    private InspeccionDTO toDTO(Inspeccion ins) {
+        InspeccionDTO dto = new InspeccionDTO();
+        dto.setIdInspeccion(ins.getIdInspeccion());
+        dto.setAlquilerId(ins.getAlquiler() != null ? ins.getAlquiler().getIdAlquiler() : null);
+        dto.setFecha(ins.getFecha());
+        dto.setObservaciones(ins.getObservaciones());
+        dto.setEstadoVehiculo(ins.getEstadoVehiculo());
+        return dto;
+    }
+
+    private Inspeccion toEntity(InspeccionDTO dto) {
+        Inspeccion ins = new Inspeccion();
+        ins.setIdInspeccion(dto.getIdInspeccion());
+        ins.setFecha(dto.getFecha());
+        ins.setObservaciones(dto.getObservaciones());
+        ins.setEstadoVehiculo(dto.getEstadoVehiculo());
+        Alquiler alquiler = alquilerRepository.findById(dto.getAlquilerId()).orElse(null);
+        ins.setAlquiler(alquiler);
+        return ins;
     }
 }

@@ -11,6 +11,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 
+
 @Entity
 @Data
 public class Reserva {
