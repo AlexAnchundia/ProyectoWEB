@@ -2,6 +2,11 @@ import pytest
 from fastapi.testclient import TestClient
 from app.main import app
 
+
+#Test para las operaciones CRUD de roles
+# Este archivo contiene las pruebas para las operaciones CRUD de roles
+# Estas pruebas verifican que se puedan crear, leer, actualizar y eliminar roles correctamente
+
 @pytest.fixture
 def client():
     return TestClient(app)

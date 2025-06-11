@@ -2,6 +2,8 @@ import pytest
 from fastapi.testclient import TestClient
 from app.main import app
 
+# Test para las operaciones CRUD de empleados
+# Este archivo contiene las pruebas unitarias para las operaciones CRUD de empleados
 @pytest.fixture
 def client():
     return TestClient(app)

@@ -12,3 +12,5 @@ api_router.include_router(vehiculos_sucursal.router, prefix="/vehiculos-sucursal
 api_router.include_router(roles.router, prefix="/roles", tags=["Roles"])
 api_router.include_router(usuarios.router, prefix="/usuarios", tags=["Usuarios"])
 api_router.include_router(auth.router, prefix="/auth", tags=["Auth"])
+
+

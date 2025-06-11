@@ -5,6 +5,9 @@ from app.db.base import Base, get_db
 from app.main import app
 from sqlalchemy.orm import declarative_base
 
+# Configuración de pruebas para la base de datos
+
+
 TEST_DATABASE_URL = "sqlite+aiosqlite:///./test_db.sqlite"
 
 try:
@@ -40,6 +43,7 @@ def override_get_db(async_session_factory):
             yield session
     app.dependency_overrides[get_db] = _override_get_db
 
+# 
 @pytest.fixture(autouse=True)
 def override_get_current_user():
     def fake_user():

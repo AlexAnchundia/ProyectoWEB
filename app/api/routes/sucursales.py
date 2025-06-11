@@ -13,6 +13,9 @@ from app.services.sucursal import (
 from app.api.routes.auth import get_current_user
 
 router = APIRouter()
+# Rutas para la gestión de sucursales
+# Este archivo define las rutas de la API para las sucursales
+# Estas rutas permiten listar, obtener, crear, actualizar y eliminar sucursales
 
 @router.get("/", response_model=list[SucursalOut])
 async def listar_sucursales(db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):

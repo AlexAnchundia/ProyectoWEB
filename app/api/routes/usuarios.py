@@ -11,6 +11,8 @@ from app.services.usuario import (
     delete_usuario,
 )
 from app.api.routes.auth import get_current_user
+#Aquí se definen las rutas de la API para los usuarios
+# Estas rutas permiten listar, obtener, crear, actualizar y eliminar usuarios
 
 router = APIRouter()
 @router.get("/", response_model=list[UsuarioOut])
